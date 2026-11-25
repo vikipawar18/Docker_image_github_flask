@@ -1,0 +1,1 @@
+This is the basic flask pr0ject where the revis0n 0f the generati0n 0f the d0cker image and the github acti0n perf0rming 0ne after an0ther 
