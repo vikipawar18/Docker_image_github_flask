@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build and test:
+  build_and_test:
 
     runs-on: ubuntu-latest
 
@@ -31,12 +31,12 @@ jobs:
         run: |
           pytest test_app.py
 
-  build and publish Docker image: 
-        
-    need: build and test
-        
+  build_and_publish_Docker_image:
+
+    needs: build_and_test
+
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -51,12 +51,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: build and push Docker image
-        use: docker/build-push-action@v4
+        id: build-and-push
+        uses: docker/build-push-action@v4
         with:
-            context: .
-            file: ./Dockerfile
-            push: true
-            tags: ${{ secrets.DOCKER_USERNAME }}/flask-app:latest
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/flask-app:latest
 
       - name: Image digest
-        run: echo "Image digest: ${{ steps.build-and-push.outputs.digest }}"
+        run: echo "${{ steps.build-and-push.outputs.digest }}"
