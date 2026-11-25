@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Checkout code
-        run: docker buildx build . __file DockerFile -t workflow-test:$(date +%s) .
+        run: docker buildx build --file DockerFile -t workflow-test:$(date +%s) .
       
   build_and_test:
 
