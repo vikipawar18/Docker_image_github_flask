@@ -9,6 +9,15 @@ on:
       - main
 
 jobs:
+
+  dockerbuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout code
+        run: docker build . __file__=DockerFile -t workflow-test:$(date +%s)
+      
   build_and_test:
 
     runs-on: ubuntu-latest
